@@ -1,2 +1,3 @@
-whmcs-bulk-password-reset
+WHMCS Bulk Password Reset Addon
 =========================
+Coming Soon!
