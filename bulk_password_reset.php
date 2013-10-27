@@ -8,11 +8,9 @@
 
  * This module will reset all the hosting password and clients password
 
- * Please refer to the full documentation @ http://docs.whmcs.com/Addon_Modules for more details.
 
  *
 
- * @package    WHMCS
 
  * @author     Achintha Samindika <achintha@outlook.com>
 
@@ -52,6 +50,8 @@ function bulk_password_reset_config() {
     "fields" => array(
         "adminuser" => array ("FriendlyName" => "Admin Username", "Type" => "text", "Size" => "25", "Description" => "", "Default" => "", ),
         "resetclient" => array ("FriendlyName" => "Reset Client's Password?", "Type" => "yesno", "Size" => "25", "Description" => "Reset Client's Password", ),
+        "resetproduct" => array ("FriendlyName" => "Reset Product's Password?", "Type" => "yesno", "Size" => "25", "Description" => "Reset Product's Password", ),
+        "enable" => array ("FriendlyName" => "Enable", "Type" => "yesno", "Size" => "25", "Description" => "Enable", ),
 
     ));
 
@@ -64,9 +64,18 @@ function bulk_password_reset_output($vars) {
 
     $adminuser = $vars['adminuser'];
 
-    clients_password_reset($adminuser);
+    if($vars['enable'] === 'on'){
 
-    products_password_reset($adminuser);  
+        if($vars['resetclient'] === 'on'){
+            clients_password_reset($adminuser);
+        }
+        if($vars['resetproduct'] === 'on'){
+            products_password_reset($adminuser); 
+        }
+    }
+    else{
+        echo 'Please enable the plugin.';
+    }
 
 }
 
